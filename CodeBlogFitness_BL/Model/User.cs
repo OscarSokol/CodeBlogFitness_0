@@ -5,6 +5,8 @@ namespace CodeBlogFitness_BL.Model
 {/// <summary>
 /// User
 /// </summary>
+
+    [Serializable]
     public class User
     {
         #region Members
@@ -44,7 +46,6 @@ namespace CodeBlogFitness_BL.Model
             #region check the input from the user
             if (string.IsNullOrWhiteSpace(name))
             {
-     
                 throw new ArgumentNullException("Name can not be empty.", nameof(name));
             }
             if (gender == null)
