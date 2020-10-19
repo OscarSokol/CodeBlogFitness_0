@@ -17,11 +17,11 @@ namespace CodeBlogFitness_BL.Model
         /// <summary>
         /// Gender
         /// </summary>
-        public Gender Gender { get; }
+        public Gender Gender { get; set; }//TODO: need to check the input because the set!
         /// <summary>
         /// BirthDay
         /// </summary>
-        public DateTime BirthDay { get; }
+        public DateTime BirthDay { get; set; } //TODO: need to check the input because the set!
         /// <summary>
         /// Weight
         /// </summary>
@@ -30,6 +30,11 @@ namespace CodeBlogFitness_BL.Model
         /// Height
         /// </summary>
         public double Height { get; set; }
+
+        public int Age { get { return DateTime.Now.Year - BirthDay.Year; } }//TODO: 
+        //DateTime nowDate = DateTime.Today;
+        //int age = nowDate.Year - BirthDay.Year;
+        //if(BirthDay.Year > nowDate.AddYears(-age)) age--;
         #endregion
 
         /// <summary>
@@ -77,9 +82,19 @@ namespace CodeBlogFitness_BL.Model
             Height = height;
         }
 
+        public User(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Name can not be empty.", nameof(name));
+            }
+
+            Name = name;
+        }
+
         public override string ToString()
         {
-            return Name;
-        }
+            return Name + " " + Age;
+        } 
     }
 }
