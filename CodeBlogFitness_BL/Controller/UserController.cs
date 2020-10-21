@@ -45,7 +45,7 @@ namespace CodeBlogFitness_BL.Controller
             CurrentUser = Users.SingleOrDefault(u => u.Name == userName);//return user if exist else return null
 
             if (CurrentUser == null)
-            {//if the user isn't exist we gone create him
+            {//if the user isn't exist we will create him
                 CurrentUser = new User(userName);//default constructor only with name
                 Users.Add(CurrentUser);
                 IsNewUser = true;
@@ -75,10 +75,20 @@ namespace CodeBlogFitness_BL.Controller
 
             using (FileStream fs = new FileStream("users.dat", FileMode.OpenOrCreate))
             {
+
+                if (fs.Length > 0 && formatter.Deserialize(fs) is List<User> users)
+                {//FOR one user!
+                    return users;
+                }
+                else
+                {
+                    return new List<User>();
+                }
+                /*
                 try
                 {
                     // Deserialize
-                    if (formatter.Deserialize(fs) is List<User> users)
+                    if (fs.Length > 0 && formatter.Deserialize(fs) is List<User> users)
                     {//FOR one user!
                         return users;
                     }
@@ -95,6 +105,7 @@ namespace CodeBlogFitness_BL.Controller
                 }
 
                 return new List<User>();
+                */
             }
         }
 
