@@ -12,8 +12,9 @@ namespace CodeBlogFitness_BL.Controller
     /// <summary>
     /// User controller
     /// </summary>
-    public class UserController
+    public class UserController : ControllerBase
     {
+        private const string USERS_FILE_NAME = "users.dat";
         /// <summary>
         /// User app
         /// </summary>
@@ -70,43 +71,8 @@ namespace CodeBlogFitness_BL.Controller
         /// <returns>User of app</returns>
         private List<User> GetUsersDate()
         {
+            return Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();//because we return default(T);
 
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            using (FileStream fs = new FileStream("users.dat", FileMode.OpenOrCreate))
-            {
-
-                if (fs.Length > 0 && formatter.Deserialize(fs) is List<User> users)
-                {//FOR one user!
-                    return users;
-                }
-                else
-                {
-                    return new List<User>();
-                }
-                /*
-                try
-                {
-                    // Deserialize
-                    if (fs.Length > 0 && formatter.Deserialize(fs) is List<User> users)
-                    {//FOR one user!
-                        return users;
-                    }
-                    //user = (List<User> users)formatter.Deserialize(fs);
-                }
-                catch (SerializationException e)
-                {
-                    Console.WriteLine("Failed to Deserialize - load user. Reason: " + e.Message);
-                    throw;
-                }
-                finally
-                {
-                    fs.Close();
-                }
-
-                return new List<User>();
-                */
-            }
         }
 
 
@@ -115,6 +81,8 @@ namespace CodeBlogFitness_BL.Controller
         /// </summary>
         public void Save()
         {
+            Save(USERS_FILE_NAME, Users);//save in ControllerBase
+            /*
             //Construct a BinaryFormatter and use it to serialize the data to the stream.
             BinaryFormatter formatter = new BinaryFormatter();
 
@@ -137,6 +105,7 @@ namespace CodeBlogFitness_BL.Controller
                     fs.Close();
                 }
             }
+            */
         }
 
     }

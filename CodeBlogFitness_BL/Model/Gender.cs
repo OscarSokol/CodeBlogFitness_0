@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeBlogFitness_BL.Model
 {   /// <summary>
     /// Gender.
     /// </summary>
-
     [Serializable]
-
     public class Gender
     {
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace CodeBlogFitness_BL.Model
 {/// <summary>
 /// User

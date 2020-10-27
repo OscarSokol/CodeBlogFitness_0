@@ -1,10 +1,7 @@
 ﻿using CodeBlogFitness_BL.Controller;
 using CodeBlogFitness_BL.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CodeBlogFitness.CMD
 {
@@ -18,6 +15,7 @@ namespace CodeBlogFitness.CMD
             var name = Console.ReadLine();
 
             var userController = new UserController(name);
+            var eatingController = new EatingController(userController.CurrentUser);
 
             if (userController.IsNewUser)
             {
@@ -31,24 +29,47 @@ namespace CodeBlogFitness.CMD
             }
 
             Console.WriteLine(userController.CurrentUser);
+
+            Console.WriteLine("Make your chose:");
+            Console.WriteLine("E  - Eating");
+
+            var key = Console.ReadKey();
+            Console.WriteLine();
+
+            if(key.Key == ConsoleKey.E)
+            {
+                var foods = EnterEating();
+                eatingController.Add(foods.Food, foods.Weight);
+
+                foreach (var item in eatingController.Eating.Foods)
+                {
+                    Console.WriteLine($"\t {item.Key} - {item.Value}");
+                }
+            }
+
             Console.ReadLine();
 
-            /*
-             Console.WriteLine("Enter user gender:");
-             var gender = Console.ReadLine();
+        }
 
+        private static (Food Food, double Weight) EnterEating()
+        {// we added nuGet System.ValueTuple
+            Console.WriteLine("Enter name of product:");
+            var food = Console.ReadLine();
 
-             Console.WriteLine("Enter user birthDay:");
-             var birthDay = DateTime.Parse(Console.ReadLine());//TODO: try parse!
+            var proteins = ParseDouble("proteins");
 
-             Console.WriteLine("Enter user weight:");
-             var weight = double.Parse(Console.ReadLine());//TODO: try parse!
+            var fats = ParseDouble("fats");
 
-             Console.WriteLine("Enter user height:");
-             var height = double.Parse(Console.ReadLine());//TODO: try parse!
-   
-            userController.Save();
-            */
+            var carbohydrates = ParseDouble("carbohydrates");
+
+            var calories = ParseDouble("calories");
+
+            var weight = ParseDouble("weight of all meal");//weight
+
+            var product = new Food(food, proteins, fats, carbohydrates, calories);
+
+            //return Key value
+            return (Food: product, Weight: weight);//New for me: Food: product, Weight: weight
         }
 
         private static DateTime ParseDataTime()
@@ -75,7 +96,7 @@ namespace CodeBlogFitness.CMD
         {
             while (true)
             {
-                Console.WriteLine($"Enter your {name}:");
+                Console.WriteLine($"Please enter {name}:");
                 if (double.TryParse(Console.ReadLine(), out double value))
                 {
                     return value;
@@ -83,7 +104,7 @@ namespace CodeBlogFitness.CMD
                 }
                 else
                 {
-                    Console.WriteLine($"Enter correct {name} format");
+                    Console.WriteLine($"Please enter correct format of {name} ");
                 }
 
             }

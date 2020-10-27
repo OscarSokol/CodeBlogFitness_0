@@ -29,7 +29,11 @@ namespace CodeBlogFitness_BL.Controller.Tests
 
             //Assert
             Assert.AreEqual(userName, userController2.CurrentUser.Name);
-    
+            Assert.AreEqual(birthDay, userController2.CurrentUser.BirthDay);
+            Assert.AreEqual(weight, userController2.CurrentUser.Weight);
+            Assert.AreEqual(height, userController2.CurrentUser.Height);
+            Assert.AreEqual(gender, userController2.CurrentUser.Gender.Name);
+
         }
 
         [TestMethod()]
