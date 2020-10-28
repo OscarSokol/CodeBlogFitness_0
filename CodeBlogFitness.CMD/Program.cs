@@ -1,7 +1,8 @@
 ﻿using CodeBlogFitness_BL.Controller;
 using CodeBlogFitness_BL.Model;
 using System;
-
+using System.Globalization;
+using System.Resources;
 
 namespace CodeBlogFitness.CMD
 {
@@ -9,9 +10,12 @@ namespace CodeBlogFitness.CMD
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello from app");//new commit
-            
-            Console.WriteLine("Enter user name:");
+            var culture = CultureInfo.CreateSpecificCulture("he");
+            var resourceManager = new ResourceManager("CodeBlogFitness.CMD.Languages.Message", typeof(Program).Assembly);
+
+            Console.WriteLine(Languages.Message_en.Hello);//resourceManager.GetString("Hello",culture)
+
+            Console.WriteLine(Languages.Message_en.UserName);//resourceManager.GetString("UserName",culture)
             var name = Console.ReadLine();
 
             var userController = new UserController(name);
@@ -19,10 +23,10 @@ namespace CodeBlogFitness.CMD
 
             if (userController.IsNewUser)
             {
-                Console.WriteLine("Enter gender your:");
+                Console.WriteLine(Languages.Message_en.UserGender);
                 var gender = Console.ReadLine();
-                var weight = ParseDouble("weight");
-                var height = ParseDouble("height");
+                var weight = ParseDouble(Languages.Message_en.Weight);//weight
+                var height = ParseDouble(Languages.Message_en.Height);//height
                 var birthDay = ParseDataTime();
 
                 userController.SetNewUserData(gender, birthDay, weight, height);
@@ -30,7 +34,7 @@ namespace CodeBlogFitness.CMD
 
             Console.WriteLine(userController.CurrentUser);
 
-            Console.WriteLine("Make your chose:");
+            Console.WriteLine(Languages.Message_en.UserChose);
             Console.WriteLine("E  - Eating");
 
             var key = Console.ReadKey();
@@ -53,7 +57,7 @@ namespace CodeBlogFitness.CMD
 
         private static (Food Food, double Weight) EnterEating()
         {// we added nuGet System.ValueTuple
-            Console.WriteLine("Enter name of product:");
+            Console.WriteLine(Languages.Message_en.ProductName);
             var food = Console.ReadLine();
 
             var proteins = ParseDouble("proteins");
@@ -77,14 +81,14 @@ namespace CodeBlogFitness.CMD
             DateTime birthDay;
             while (true)
             {//1:08:15
-                Console.WriteLine("Enter your birth day (dd.mm.yyyy):");
+                Console.WriteLine(Languages.Message_en.BirhDay);
                 if (DateTime.TryParse(Console.ReadLine(), out birthDay))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Enter your birth day in correct format (dd.mm.yyyy)");
+                    Console.WriteLine(Languages.Message_en.BirhDay_cerrect_form);
                 }
 
             }
