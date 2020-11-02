@@ -11,6 +11,8 @@ namespace CodeBlogFitness_BL.Controller
         private const string EATINGS_FILE_NAME = "eatings.dat";
         private readonly User user;
 
+        
+
         /// <summary>
         /// Foods this is a list of products
         /// </summary>
@@ -41,13 +43,12 @@ namespace CodeBlogFitness_BL.Controller
             {//new product
                 Foods.Add(food);
                 Eating.Add(food, weight);
-                Save();
             }
             else
             {
                 Eating.Add(product, weight);
-                Save();
             }
+            Save();
         }
 
         /// <summary>
