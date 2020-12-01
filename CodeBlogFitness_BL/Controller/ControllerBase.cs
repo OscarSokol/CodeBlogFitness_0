@@ -1,38 +1,20 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+﻿
+using System.Collections.Generic;
+
 
 namespace CodeBlogFitness_BL.Controller
 {
     public abstract class ControllerBase
     {
-        protected void Save(string fileName, object item)
+        private readonly IDataSeve menager = new SerializeDataSeve();
+        protected void Save<T>(List<T> item) where T : class
         {
-            var formatter = new BinaryFormatter();
-
-            using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, item);
-            }
+            menager.Save( item);
         }
 
-        protected T Load<T>(string fileName)
+        protected List<T> Load<T>() where T : class
         {
-            var formatter = new BinaryFormatter();
-
-            using (var fs = new FileStream(fileName, FileMode.OpenOrCreate))
-            {
-                //fs.Position = 0;
-                if (fs.Length > 0 && formatter.Deserialize(fs) is T items)
-                {
-                    return items;
-                }
-                else
-                {
-                    return default(T);
-                }
-
-            }
+            return menager.Load<T>();
         }
 
 

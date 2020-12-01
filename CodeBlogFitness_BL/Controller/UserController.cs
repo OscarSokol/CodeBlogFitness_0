@@ -71,7 +71,8 @@ namespace CodeBlogFitness_BL.Controller
         /// <returns>User of app</returns>
         private List<User> GetUsersDate()
         {
-            return Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();//because we return default(T);
+            //return Load<List<User>>(USERS_FILE_NAME) ?? new List<User>();//because we return default(T);
+            return Load<User>() ?? new List<User>();
 
         }
 
@@ -81,7 +82,10 @@ namespace CodeBlogFitness_BL.Controller
         /// </summary>
         public void Save()
         {
-            Save(USERS_FILE_NAME, Users);//save in ControllerBase
+            Save(Users);
+            
+            //Save(USERS_FILE_NAME, Users);//save in ControllerBase
+            
             /*
             //Construct a BinaryFormatter and use it to serialize the data to the stream.
             BinaryFormatter formatter = new BinaryFormatter();

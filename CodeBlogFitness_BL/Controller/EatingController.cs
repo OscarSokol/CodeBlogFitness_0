@@ -57,7 +57,8 @@ namespace CodeBlogFitness_BL.Controller
         /// <returns></returns>
         private Eating GetEating()
         {
-            return Load<Eating>(EATINGS_FILE_NAME) ?? new Eating(user);//because we return default(T);
+            //return Load<Eating>(EATINGS_FILE_NAME) ?? new Eating(user);//because we return default(T);
+            return Load<Eating>().FirstOrDefault() ?? new Eating(user);
         }
 
         /// <summary>
@@ -66,7 +67,8 @@ namespace CodeBlogFitness_BL.Controller
         /// <returns></returns>
         private List<Food> GetAllFoods()
         {
-            return Load<List<Food>>(FOODS_FILE_NAME) ?? new List<Food>();//because we return default(T);
+            //return Load<List<Food>>(FOODS_FILE_NAME) ?? new List<Food>();//because we return default(T);
+            return Load<Food>() ?? new List<Food>();
         }
 
         /// <summary>
@@ -74,8 +76,12 @@ namespace CodeBlogFitness_BL.Controller
         /// </summary>
         private void Save()
         {
+            Save(Foods);
+            Save(new List<Eating>() { Eating });
+            /*
             Save(FOODS_FILE_NAME, Foods);
             Save(EATINGS_FILE_NAME, Eating);
+            */
         }
     }
 }

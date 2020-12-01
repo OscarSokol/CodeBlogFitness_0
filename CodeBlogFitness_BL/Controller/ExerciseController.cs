@@ -41,18 +41,22 @@ namespace CodeBlogFitness_BL.Controller
 
         private List<Activity> GetAllActivities()
         {
-            return Load<List<Activity>>(ACTIVITIES_FILE_NAME) ?? new List<Activity>();
+            //return Load<List<Activity>>(ACTIVITIES_FILE_NAME) ?? new List<Activity>();
+            return Load<Activity>() ?? new List<Activity>();
         }
 
         private List<Exercise> GetAllExercises()
         {
-            return Load<List<Exercise>>(EXERCISES_FILE_NAME) ?? new List<Exercise>();
+            //return Load<List<Exercise>>(EXERCISES_FILE_NAME) ?? new List<Exercise>();
+            return Load<Exercise>() ?? new List<Exercise>();
         }
 
         private void Save()
         {
-            Save(EXERCISES_FILE_NAME, Exercises);
-            Save(ACTIVITIES_FILE_NAME, Activities);
+            Save(Exercises);
+            Save(Activities);
+            //Save(EXERCISES_FILE_NAME, Exercises);
+            //Save(ACTIVITIES_FILE_NAME, Activities);
         }
     }
 }

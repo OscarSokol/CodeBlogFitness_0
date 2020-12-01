@@ -9,14 +9,21 @@ namespace CodeBlogFitness_BL.Model
     /// </summary>
     [Serializable]
     public class Eating
-    {  
-        public DateTime MomentOfEating { get; }
+    {
+        public int Id { get; set; }
+        public DateTime MomentOfEating { get; set; }
 
         //public List<Food> Foods { get; }
-        public Dictionary<Food,double> Foods { get; }//Dic is Not so effective in big production because
+        public Dictionary<Food,double> Foods { get; set; }//Dic is Not so effective in big production because
         //Food is a key and double is a volume  
 
-        public User User { get; }
+        public int UserId { get; set; }//for entityfreamwork
+        public virtual User User { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Eating() { }
 
         /// <summary>
         /// Constructor of eating process of user

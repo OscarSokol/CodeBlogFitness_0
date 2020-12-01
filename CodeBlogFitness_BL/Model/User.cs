@@ -8,11 +8,12 @@ namespace CodeBlogFitness_BL.Model
     [Serializable]
     public class User
     {
+        public int Id { get; set; }
         #region Members
         /// <summary>
         /// Name
         /// </summary>
-        public string Name { get; }
+        public string Name { get; set; }
         /// <summary>
         /// Gender
         /// </summary>
@@ -44,6 +45,8 @@ namespace CodeBlogFitness_BL.Model
         /// <param name="birthDay"> user birth day</param>
         /// <param name="weight">user weight</param>
         /// <param name="height">user height</param>
+
+        public User() { }
 
         public User(string name, Gender gender, DateTime birthDay, double weight, double height)
         {
